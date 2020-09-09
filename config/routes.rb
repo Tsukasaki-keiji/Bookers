@@ -5,4 +5,5 @@ get 'books/new'
   resources :books
   post 'books' => 'books#create'
   get 'books' => 'books#index'
+  get 'books/:id' => 'books#show', as: 'book'
 end
