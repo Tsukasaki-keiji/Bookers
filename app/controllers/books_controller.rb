@@ -19,7 +19,7 @@ class BooksController < ApplicationController
     if book.save
      redirect_to book_path(book), notice: 'Book was successfully created.'
     else
-       flash[:error] = 'errors prohibited this book from being saved'
+       flash[:error] = "errors prohibited this book from being saved can't be blank"
       @books = Book.all
       @book = Book.new
       render action: :index
@@ -33,10 +33,10 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        format.html { redirect_to @book, notice: 'Book was successfully updated asd.' }
         format.json { render :show, status: :ok, location: @book }
       else
-        flash[:error] = 'errors prohibited this book from being saved'
+        flash[:errors] = "errors prohibited this book from being saved can't be blank"
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
