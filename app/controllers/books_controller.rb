@@ -16,8 +16,14 @@ class BooksController < ApplicationController
 
   def create
     book = Book.new(book_params)
-    book.save
-    redirect_to book_path(book), notice: 'Book was successfully created.'
+    if book.save
+     redirect_to book_path(book), notice: 'Book was successfully created.'
+    else
+       flash[:error] = 'errors prohibited this book from being saved'
+      @books = Book.all
+      @book = Book.new
+      render action: :index
+    end
   end
 
   def edit
@@ -30,6 +36,7 @@ class BooksController < ApplicationController
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
       else
+        flash[:error] = 'errors prohibited this book from being saved'
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
