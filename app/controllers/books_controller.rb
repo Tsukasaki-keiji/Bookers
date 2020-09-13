@@ -15,13 +15,11 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.new(book_params)
-    if book.save
-     redirect_to book_path(book), notice: 'Book was successfully created.'
+    @book = Book.new(book_params)
+    if @book.save
+     redirect_to book_path(@book), notice: 'Book was successfully created.'
     else
-       flash[:error] = "errors prohibited this book from being saved can't be blank"
       @books = Book.all
-      @book = Book.new
       render action: :index
     end
   end
